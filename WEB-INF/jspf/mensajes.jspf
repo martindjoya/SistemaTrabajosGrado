@@ -1,0 +1,6 @@
+<c:if test="${not empty param.ok}">
+    <div class="mensaje ok"><c:out value="${param.ok}"/></div>
+</c:if>
+<c:if test="${not empty param.error}">
+    <div class="mensaje error"><c:out value="${param.error}"/></div>
+</c:if>

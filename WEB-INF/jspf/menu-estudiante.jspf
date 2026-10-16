@@ -1,0 +1,9 @@
+<nav class="menu">
+    <a href="${ctx}/estudiante/inicio.jsp">Inicio</a>
+    <a href="${ctx}/estudiante/ideas.jsp">Ideas</a>
+    <a href="${ctx}/estudiante/anteproyecto.jsp">Mi anteproyecto</a>
+    <a href="${ctx}/estudiante/calificacion.jsp">Calificacion</a>
+    <a href="${ctx}/comun/calendario.jsp">Calendario</a>
+    <a href="${ctx}/comun/formatos.jsp">Formatos</a>
+    <a href="${ctx}/logout.jsp">Cerrar sesion</a>
+</nav>

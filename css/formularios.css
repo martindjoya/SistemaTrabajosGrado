@@ -1,0 +1,66 @@
+.formulario {
+    max-width: 720px;
+    background: rgba(255, 255, 255, .78);
+    border: 1px solid var(--beige-300);
+    border-radius: 22px;
+    padding: 2rem;
+    box-shadow: var(--sombra);
+}
+.campo { margin-bottom: 1.2rem; }
+.campo label {
+    display: block;
+    margin-bottom: .35rem;
+    font-weight: 600;
+    font-size: .88rem;
+    color: var(--musgo-700);
+}
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: .7rem 1rem;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--texto);
+    background: #fffdf8;
+    border: 1.5px solid var(--beige-300);
+    border-radius: 12px;
+    transition: border-color .2s, box-shadow .2s;
+}
+.campo textarea { min-height: 130px; resize: vertical; }
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: var(--musgo-500);
+    box-shadow: 0 0 0 4px rgba(91, 112, 72, .18);
+}
+.campo input[type="file"]::file-selector-button {
+    margin-right: 1rem;
+    padding: .4rem 1rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--salvia-200);
+    color: var(--musgo-900);
+    font-weight: 600;
+    cursor: pointer;
+}
+.ayuda { font-size: .8rem; color: var(--texto-suave); margin-top: .25rem; }
+
+.rejilla-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+.acciones { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+.buscador { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.buscador input, .buscador select {
+    padding: .65rem 1rem;
+    border: 1.5px solid var(--beige-300);
+    border-radius: 999px;
+    background: #fffdf8;
+    font-family: inherit;
+}
+.buscador input { flex: 1; min-width: 200px; }
+
+@media (max-width: 700px) {
+    .rejilla-2 { grid-template-columns: 1fr; }
+    .formulario { padding: 1.3rem; }
+}

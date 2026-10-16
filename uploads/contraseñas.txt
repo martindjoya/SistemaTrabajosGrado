@@ -1,0 +1,5 @@
+CONTRASEÑAS:
+
+- admin ; Admin123
+- coordinacion ; 123456
+- estudiante ; 123456

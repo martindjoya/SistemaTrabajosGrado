@@ -1,0 +1,32 @@
+.login-pagina {
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background:
+        radial-gradient(700px 500px at 12% 8%, #d5dfc6, transparent 60%),
+        radial-gradient(600px 500px at 92% 92%, #e8dcc0, transparent 60%),
+        var(--beige-100);
+}
+.login-caja {
+    width: 100%;
+    max-width: 430px;
+    background: rgba(255, 255, 255, .75);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--beige-300);
+    border-top: 4px solid var(--musgo-500);
+    border-radius: 26px;
+    padding: 2.4rem 2rem;
+    box-shadow: 0 20px 50px rgba(38, 49, 31, .15);
+}
+.login-caja .login-marca {
+    text-align: center;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    font-weight: 700;
+}
+.login-caja h1 { text-align: center; font-size: 2rem; margin-bottom: 1.6rem; }
+.login-caja .btn { width: 100%; }
+.login-caja .volver { display: block; text-align: center; margin-top: 1.2rem; font-size: .9rem; }

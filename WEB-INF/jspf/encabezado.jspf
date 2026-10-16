@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><c:out value="${empty titulo ? 'Trabajos de Grado' : titulo}"/> | UTS</title>
+    <link rel="stylesheet" href="${ctx}/css/estilos.css">
+    <link rel="stylesheet" href="${ctx}/css/tablas.css">
+    <link rel="stylesheet" href="${ctx}/css/formularios.css">
+</head>
+<body>
+<header class="encabezado">
+    <a class="marca" href="${ctx}/index.jsp">
+        <span class="logo-caja"><img src="${ctx}/img/logouts.png" alt="Unidades Tecnologicas de Santander"></span>
+        <span class="marca-texto">Trabajos de Grado</span>
+    </a>
+    <c:if test="${not empty sessionScope.id_usuario}">
+        <div class="usuario">
+            <c:out value="${sessionScope.nombre}"/> - <c:out value="${sessionScope.rol}"/>
+        </div>
+    </c:if>
+</header>
+
+<c:choose>
+    <c:when test="${sessionScope.id_rol == 1}">
+        <%@ include file="/WEB-INF/jspf/menu-admin.jspf" %>
+    </c:when>
+    <c:when test="${sessionScope.id_rol == 2}">
+        <%@ include file="/WEB-INF/jspf/menu-coordinacion.jspf" %>
+    </c:when>
+    <c:when test="${sessionScope.id_rol == 3}">
+        <%@ include file="/WEB-INF/jspf/menu-director.jspf" %>
+    </c:when>
+    <c:when test="${sessionScope.id_rol == 4}">
+        <%@ include file="/WEB-INF/jspf/menu-evaluador.jspf" %>
+    </c:when>
+    <c:when test="${sessionScope.id_rol == 5}">
+        <%@ include file="/WEB-INF/jspf/menu-estudiante.jspf" %>
+    </c:when>
+</c:choose>
+
+<main class="contenedor">
+<%@ include file="/WEB-INF/jspf/mensajes.jspf" %>

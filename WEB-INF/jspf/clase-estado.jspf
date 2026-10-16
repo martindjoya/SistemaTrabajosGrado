@@ -1,0 +1,7 @@
+<c:choose>
+    <c:when test="${est == 'Enviado'}"><c:set var="claseEstado" value="badge-enviado"/></c:when>
+    <c:when test="${est == 'Aprobado por director'}"><c:set var="claseEstado" value="badge-director"/></c:when>
+    <c:when test="${est == 'Aprobado por evaluador'}"><c:set var="claseEstado" value="badge-evaluador"/></c:when>
+    <c:when test="${est == 'Rechazado'}"><c:set var="claseEstado" value="badge-rechazado"/></c:when>
+    <c:otherwise><c:set var="claseEstado" value="badge-idea"/></c:otherwise>
+</c:choose>

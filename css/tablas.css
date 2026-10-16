@@ -1,0 +1,41 @@
+.tabla-wrap {
+    overflow-x: auto;
+    background: rgba(255, 255, 255, .78);
+    border: 1px solid var(--beige-300);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+}
+table { width: 100%; border-collapse: collapse; min-width: 620px; }
+thead th {
+    background: var(--musgo-700);
+    color: var(--beige-100);
+    text-align: left;
+    padding: .85rem 1rem;
+    font-size: .8rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+tbody td { padding: .8rem 1rem; border-bottom: 1px solid var(--beige-200); }
+tbody tr:hover { background: var(--salvia-100); }
+tbody tr:last-child td { border-bottom: none; }
+
+.acciones-tabla { display: flex; gap: .4rem; flex-wrap: wrap; }
+.vacio { text-align: center; padding: 2rem; color: var(--texto-suave); }
+
+/* Estados */
+.badge {
+    display: inline-block;
+    padding: .2rem .8rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 700;
+    border: 1px solid transparent;
+}
+.badge-idea       { background: var(--beige-200); color: #6b5f3d; border-color: var(--beige-300); }
+.badge-enviado    { background: #f1e7c8; color: #7a6420; border-color: #e0cf99; }
+.badge-director   { background: var(--salvia-200); color: var(--musgo-700); border-color: var(--salvia-400); }
+.badge-evaluador  { background: #cfe3c6; color: #2f5a2c; border-color: #9cc18f; }
+.badge-rechazado  { background: #f3d9d4; color: #7c2f26; border-color: #e3aaa1; }
+.badge-activo     { background: #cfe3c6; color: #2f5a2c; }
+.badge-inactivo   { background: #f3d9d4; color: #7c2f26; }

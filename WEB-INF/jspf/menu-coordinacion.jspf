@@ -1,0 +1,11 @@
+<nav class="menu">
+    <a href="${ctx}/coordinacion/inicio.jsp">Inicio</a>
+    <a href="${ctx}/coordinacion/ideas.jsp">Ideas</a>
+    <a href="${ctx}/coordinacion/buscar-estudiante.jsp">Buscar estudiante</a>
+    <a href="${ctx}/coordinacion/informe-estudiante.jsp">Informe estudiantes</a>
+    <a href="${ctx}/coordinacion/informe-director.jsp">Informe directores</a>
+    <a href="${ctx}/coordinacion/informe-evaluador.jsp">Informe evaluadores</a>
+    <a href="${ctx}/comun/calendario.jsp">Calendario</a>
+    <a href="${ctx}/comun/formatos.jsp">Formatos</a>
+    <a href="${ctx}/logout.jsp">Cerrar sesion</a>
+</nav>

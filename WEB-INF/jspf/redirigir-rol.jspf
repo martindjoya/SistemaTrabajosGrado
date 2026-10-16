@@ -1,0 +1,8 @@
+<c:choose>
+    <c:when test="${sessionScope.id_rol == 1}"><c:redirect url="/admin/inicio.jsp"/></c:when>
+    <c:when test="${sessionScope.id_rol == 2}"><c:redirect url="/coordinacion/inicio.jsp"/></c:when>
+    <c:when test="${sessionScope.id_rol == 3}"><c:redirect url="/director/inicio.jsp"/></c:when>
+    <c:when test="${sessionScope.id_rol == 4}"><c:redirect url="/evaluador/inicio.jsp"/></c:when>
+    <c:when test="${sessionScope.id_rol == 5}"><c:redirect url="/estudiante/inicio.jsp"/></c:when>
+    <c:otherwise><c:redirect url="/logout.jsp"/></c:otherwise>
+</c:choose>

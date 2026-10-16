@@ -1,0 +1,4 @@
+<%@ include file="/WEB-INF/jspf/validar-sesion.jspf" %>
+<c:if test="${sessionScope.id_rol != 3}">
+    <c:redirect url="/acceso-denegado.jsp"/>
+</c:if>
