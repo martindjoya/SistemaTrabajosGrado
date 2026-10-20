@@ -6,7 +6,8 @@
 <sql:query var="rs" dataSource="${bd}">
     SELECT u.nombres, u.apellidos, u.correo, u.telefono, e.codigo, e.programa,
            a.id_anteproyecto, a.titulo AS titulo_ante, a.resumen, a.archivo, a.estado,
-           a.calificacion, a.observaciones_director, a.observaciones_evaluador, a.fecha_envio,
+           a.calificacion, a.observaciones_director, a.observaciones_evaluador,
+           DATE_FORMAT(a.fecha_envio, '%d/%m/%Y %H:%i') AS fecha_envio,
            i.titulo AS idea,
            CONCAT(ud.nombres, ' ', ud.apellidos) AS director,
            CONCAT(ue.nombres, ' ', ue.apellidos) AS evaluador
@@ -78,7 +79,7 @@
                 <dd>
                     <c:choose>
                         <c:when test="${empty p.fecha_envio}">Aun no enviado</c:when>
-                        <c:otherwise><fmt:formatDate value="${p.fecha_envio}" pattern="dd/MM/yyyy HH:mm"/></c:otherwise>
+                        <c:otherwise><c:out value="${p.fecha_envio}"/></c:otherwise>
                     </c:choose>
                 </dd>
             </dl>
