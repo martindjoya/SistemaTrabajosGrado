@@ -8,6 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
     <title>Iniciar sesion | UTS</title>
     <link rel="stylesheet" href="${ctx}/css/estilos.css">
     <link rel="stylesheet" href="${ctx}/css/formularios.css">
@@ -32,7 +34,11 @@
             <button type="submit" class="btn btn-primario">Ingresar</button>
         </form>
 
-        <a class="volver" href="${ctx}/index.jsp">← Volver al inicio</a>
+        <p class="ayuda" style="text-align:center; margin-top:1rem;">
+            Las cuentas son creadas unicamente por el administrador. Si no tiene una, solicitela en coordinacion.
+        </p>
+
+        <a class="volver" href="${ctx}/index.jsp">Volver al inicio</a>
     </div>
 </body>
 </html>
