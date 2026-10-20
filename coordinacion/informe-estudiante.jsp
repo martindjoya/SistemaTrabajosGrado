@@ -3,6 +3,22 @@
 <%@ include file="/WEB-INF/jspf/validar-coordinacion.jspf" %>
 <c:set var="titulo" value="Informe por estudiante"/>
 
+<sql:query var="directores" dataSource="${bd}">
+    SELECT u.id_usuario, CONCAT(u.nombres, ' ', u.apellidos) AS nombre
+    FROM usuarios u
+    INNER JOIN docentes d ON d.id_usuario = u.id_usuario
+    WHERE u.id_rol = 3
+    ORDER BY u.apellidos, u.nombres
+</sql:query>
+
+<sql:query var="evaluadores" dataSource="${bd}">
+    SELECT u.id_usuario, CONCAT(u.nombres, ' ', u.apellidos) AS nombre
+    FROM usuarios u
+    INNER JOIN docentes d ON d.id_usuario = u.id_usuario
+    WHERE u.id_rol = 4
+    ORDER BY u.apellidos, u.nombres
+</sql:query>
+
 <sql:query var="rs" dataSource="${bd}">
     SELECT u.id_usuario, u.nombres, u.apellidos, e.codigo, a.estado, a.calificacion,
            COALESCE(a.titulo, i.titulo) AS proyecto,
@@ -16,20 +32,27 @@
     LEFT JOIN usuarios ue ON ue.id_usuario = a.id_evaluador
     WHERE (e.codigo LIKE ? OR CONCAT(u.nombres, ' ', u.apellidos) LIKE ?)
       AND (? = '' OR a.estado = ?)
+      AND (? = '' OR a.id_director = ?)
+      AND (? = '' OR a.id_evaluador = ?)
     ORDER BY u.apellidos, u.nombres
     <sql:param value="%${param.q}%"/>
     <sql:param value="%${param.q}%"/>
     <sql:param value="${empty param.estado ? '' : param.estado}"/>
     <sql:param value="${empty param.estado ? '' : param.estado}"/>
+    <sql:param value="${empty param.director ? '' : param.director}"/>
+    <sql:param value="${empty param.director ? '' : param.director}"/>
+    <sql:param value="${empty param.evaluador ? '' : param.evaluador}"/>
+    <sql:param value="${empty param.evaluador ? '' : param.evaluador}"/>
 </sql:query>
 
 <%@ include file="/WEB-INF/jspf/encabezado.jspf" %>
 
 <h1>Informe del estado por estudiante</h1>
-<p class="subtitulo">Estado actual del proyecto de cada estudiante.</p>
+<p class="subtitulo">Busque y filtre los proyectos por estudiante, director, evaluador o estado.</p>
 
 <form class="buscador" action="${ctx}/coordinacion/informe-estudiante.jsp" method="get">
-    <input type="text" name="q" placeholder="Codigo o nombre" value="${fn:escapeXml(param.q)}">
+    <input type="text" name="q" placeholder="Codigo o nombre del estudiante" value="${fn:escapeXml(param.q)}">
+
     <select name="estado">
         <option value="">Todos los estados</option>
         <option value="Idea" ${param.estado == 'Idea' ? 'selected' : ''}>Idea</option>
@@ -38,7 +61,23 @@
         <option value="Aprobado por evaluador" ${param.estado == 'Aprobado por evaluador' ? 'selected' : ''}>Aprobado por evaluador</option>
         <option value="Rechazado" ${param.estado == 'Rechazado' ? 'selected' : ''}>Rechazado</option>
     </select>
+
+    <select name="director">
+        <option value="">Todos los directores</option>
+        <c:forEach var="d" items="${directores.rows}">
+            <option value="${d.id_usuario}" ${param.director == d.id_usuario ? 'selected' : ''}><c:out value="${d.nombre}"/></option>
+        </c:forEach>
+    </select>
+
+    <select name="evaluador">
+        <option value="">Todos los evaluadores</option>
+        <c:forEach var="ev" items="${evaluadores.rows}">
+            <option value="${ev.id_usuario}" ${param.evaluador == ev.id_usuario ? 'selected' : ''}><c:out value="${ev.nombre}"/></option>
+        </c:forEach>
+    </select>
+
     <button type="submit" class="btn btn-secundario">Filtrar</button>
+    <a class="btn btn-secundario" href="${ctx}/coordinacion/informe-estudiante.jsp">Limpiar</a>
 </form>
 
 <p class="subtitulo"><c:out value="${rs.rowCount}"/> registro(s)</p>
