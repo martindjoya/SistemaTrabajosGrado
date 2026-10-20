@@ -5,7 +5,9 @@
 
 <sql:query var="rs" dataSource="${bd}">
     SELECT a.titulo, a.estado, a.calificacion, a.observaciones_director, a.observaciones_evaluador,
-           a.fecha_aprob_director, a.fecha_aprob_evaluador, i.titulo AS idea
+           DATE_FORMAT(a.fecha_aprob_director, '%d/%m/%Y %H:%i') AS fecha_aprob_director,
+           DATE_FORMAT(a.fecha_aprob_evaluador, '%d/%m/%Y %H:%i') AS fecha_aprob_evaluador,
+           i.titulo AS idea
     FROM anteproyectos a
     INNER JOIN ideas i ON i.id_idea = a.id_idea
     WHERE a.id_estudiante = ?
@@ -58,14 +60,14 @@
         <dd>
             <c:choose>
                 <c:when test="${empty p.fecha_aprob_director}">Pendiente</c:when>
-                <c:otherwise><fmt:formatDate value="${p.fecha_aprob_director}" pattern="dd/MM/yyyy HH:mm"/></c:otherwise>
+                <c:otherwise><c:out value="${p.fecha_aprob_director}"/></c:otherwise>
             </c:choose>
         </dd>
         <dt>Aprobado por evaluador</dt>
         <dd>
             <c:choose>
                 <c:when test="${empty p.fecha_aprob_evaluador}">Pendiente</c:when>
-                <c:otherwise><fmt:formatDate value="${p.fecha_aprob_evaluador}" pattern="dd/MM/yyyy HH:mm"/></c:otherwise>
+                <c:otherwise><c:out value="${p.fecha_aprob_evaluador}"/></c:otherwise>
             </c:choose>
         </dd>
     </dl>
