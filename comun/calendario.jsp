@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/conexion.jspf" %>
 <%@ include file="/WEB-INF/jspf/validar-sesion.jspf" %>
-<c:if test="${sessionScope.id_rol == 1}">
-    <c:redirect url="/acceso-denegado.jsp"/>
-</c:if>
 <c:set var="titulo" value="Calendario academico"/>
 
 <sql:query var="rs" dataSource="${bd}">
@@ -16,6 +13,9 @@
 
 <h1>Calendario academico</h1>
 <p class="subtitulo">Fechas importantes del proceso de trabajos de grado.</p>
+<p class="acciones">
+    <a class="btn btn-primario" href="https://www.uts.edu.co/calendario-academico/" target="_blank" rel="noopener noreferrer">Consultar calendario académico UTS</a>
+</p>
 
 <div class="tabla-wrap">
     <table>

@@ -2,5 +2,7 @@
     <a href="${ctx}/admin/inicio.jsp">Inicio</a>
     <a href="${ctx}/admin/usuarios.jsp">Usuarios</a>
     <a href="${ctx}/admin/usuario-nuevo.jsp">Nuevo usuario</a>
+    <a href="${ctx}/comun/calendario.jsp">Calendario</a>
+    <a href="${ctx}/comun/formatos.jsp">Formatos</a>
     <a href="${ctx}/logout.jsp">Cerrar sesion</a>
 </nav>
