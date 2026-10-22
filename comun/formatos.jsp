@@ -20,9 +20,6 @@
         <div class="tarjeta">
             <h3><c:out value="${f.nombre}"/></h3>
             <p><c:out value="${f.descripcion}"/></p>
-            <div class="acciones">
-                <a class="btn btn-primario btn-sm" href="${ctx}/formatos/<c:out value="${f.archivo}"/>" target="_blank">Descargar</a>
-            </div>
         </div>
     </c:forEach>
     <c:if test="${rs.rowCount == 0}">
