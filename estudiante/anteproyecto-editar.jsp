@@ -29,7 +29,7 @@
 </c:if>
 
 <c:set var="d" value="${pageContext.request.method == 'POST' ? param : a}"/>
-<c:set var="documentoExterno" value="${fn:startsWith(fn:toLowerCase(a.archivo), 'https://') or fn:startsWith(fn:toLowerCase(a.archivo), 'http://')}"/>
+<c:set var="documentoExterno" value="${not empty a.archivo and (fn:startsWith(fn:toLowerCase(a.archivo), 'https://') or fn:startsWith(fn:toLowerCase(a.archivo), 'http://'))}"/>
 
 <%@ include file="/WEB-INF/jspf/encabezado.jspf" %>
 

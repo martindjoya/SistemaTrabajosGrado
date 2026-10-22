@@ -30,7 +30,7 @@
 </c:if>
 
 <c:set var="p" value="${rs.rows[0]}"/>
-<c:set var="documentoExterno" value="${fn:startsWith(fn:toLowerCase(p.archivo), 'https://') or fn:startsWith(fn:toLowerCase(p.archivo), 'http://')}"/>
+<c:set var="documentoExterno" value="${not empty p.archivo and (fn:startsWith(fn:toLowerCase(p.archivo), 'https://') or fn:startsWith(fn:toLowerCase(p.archivo), 'http://'))}"/>
 <c:set var="est" value="${p.estado}"/>
 <%@ include file="/WEB-INF/jspf/clase-estado.jspf" %>
 

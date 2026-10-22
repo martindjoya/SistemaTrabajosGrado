@@ -25,7 +25,7 @@
 </c:if>
 
 <c:set var="p" value="${rs.rows[0]}"/>
-<c:set var="documentoExterno" value="${fn:startsWith(fn:toLowerCase(p.archivo), 'https://') or fn:startsWith(fn:toLowerCase(p.archivo), 'http://')}"/>
+<c:set var="documentoExterno" value="${not empty p.archivo and (fn:startsWith(fn:toLowerCase(p.archivo), 'https://') or fn:startsWith(fn:toLowerCase(p.archivo), 'http://'))}"/>
 <c:if test="${empty p.calificacion}">
     <c:redirect url="/director/calificar.jsp">
         <c:param name="id" value="${p.id_anteproyecto}"/>

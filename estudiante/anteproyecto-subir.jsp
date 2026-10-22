@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/conexion.jspf" %>
 <%@ include file="/WEB-INF/jspf/validar-estudiante.jspf" %>
-<c:set var="titulo" value="Subir anteproyecto"/>
+<c:set var="titulo" value="Completar anteproyecto"/>
 
 <sql:query var="rs" dataSource="${bd}">
     SELECT a.estado, i.titulo AS idea

@@ -80,7 +80,7 @@ El anteproyecto se registra mediante formularios del sistema, sin carga de archi
 | Código | Requerimiento | Rol | Prioridad |
 | --- | --- | --- | --- |
 | RF-22 | Ver las ideas de proyecto disponibles y seleccionar una. | Estudiante | Alta |
-| RF-23 | Subir (registrar) su anteproyecto mediante formulario (CRUD – crear). | Estudiante | Alta |
+| RF-23 | Registrar su anteproyecto mediante formulario y proporcionar el enlace HTTPS al documento alojado en la nube (CRUD – crear). | Estudiante | Alta |
 | RF-24 | Consultar su anteproyecto registrado (CRUD – consultar). | Estudiante | Alta |
 | RF-25 | Editar su anteproyecto (CRUD – editar). | Estudiante | Alta |
 | RF-26 | Eliminar su anteproyecto (CRUD – eliminar). | Estudiante | Media |
