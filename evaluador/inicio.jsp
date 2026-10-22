@@ -8,7 +8,9 @@
         (SELECT COUNT(*) FROM anteproyectos WHERE id_evaluador = ? AND estado = 'Aprobado por director') AS por_revisar,
         (SELECT COUNT(*) FROM anteproyectos WHERE id_evaluador = ? AND estado = 'Aprobado por evaluador') AS aprobados,
         (SELECT COUNT(*) FROM anteproyectos WHERE id_evaluador = ? AND estado = 'Rechazado') AS rechazados,
-        (SELECT COUNT(*) FROM anteproyectos WHERE id_evaluador = ? AND estado IN ('Aprobado por director','Aprobado por evaluador','Rechazado')) AS total
+        (SELECT COUNT(*) FROM anteproyectos WHERE id_evaluador = ? AND estado = 'Enviado') AS pendientes_director,
+        (SELECT COUNT(*) FROM anteproyectos WHERE id_evaluador = ? AND estado IN ('Enviado','Aprobado por director','Aprobado por evaluador','Rechazado')) AS total
+    <sql:param value="${sessionScope.id_usuario}"/>
     <sql:param value="${sessionScope.id_usuario}"/>
     <sql:param value="${sessionScope.id_usuario}"/>
     <sql:param value="${sessionScope.id_usuario}"/>
@@ -22,6 +24,10 @@
 <p class="subtitulo">Bienvenido, <c:out value="${sessionScope.nombre}"/>. Resumen de sus anteproyectos:</p>
 
 <div class="rejilla-tarjetas">
+    <div class="tarjeta">
+        <p>En revisión del director</p>
+        <div class="numero"><c:out value="${r.pendientes_director}"/></div>
+    </div>
     <div class="tarjeta">
         <p>Por revisar</p>
         <div class="numero"><c:out value="${r.por_revisar}"/></div>

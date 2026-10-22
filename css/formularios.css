@@ -275,6 +275,7 @@
     letter-spacing: .1em;
 }
 .revision-idea strong { color: var(--musgo-900); font-size: .86rem; overflow-wrap: anywhere; }
+.revision-idea p { margin: 0; color: var(--texto-suave); font-size: .8rem; white-space: pre-line; overflow-wrap: anywhere; }
 .revision-resumen p, .revision-observaciones p { white-space: pre-line; overflow-wrap: anywhere; }
 .revision-lateral .anteproyecto-card-titulo { margin-bottom: 1rem; }
 .revision-lateral .formulario { max-width: none; width: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }

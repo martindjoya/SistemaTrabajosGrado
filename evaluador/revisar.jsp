@@ -4,21 +4,20 @@
 <c:set var="titulo" value="Revisar anteproyecto"/>
 
 <sql:query var="rs" dataSource="${bd}">
-    SELECT a.id_anteproyecto, a.titulo AS titulo_ante, a.resumen, a.archivo, a.estado,
+    SELECT a.id_anteproyecto, a.titulo, a.resumen, a.archivo, a.estado,
            a.calificacion, a.observaciones_director, a.observaciones_evaluador,
            DATE_FORMAT(a.fecha_envio, '%d/%m/%Y %H:%i') AS fecha_envio,
            DATE_FORMAT(a.fecha_aprob_director, '%d/%m/%Y %H:%i') AS fecha_aprob_director,
            DATE_FORMAT(a.fecha_aprob_evaluador, '%d/%m/%Y %H:%i') AS fecha_aprob_evaluador,
-           i.titulo AS idea,
+           a.id_idea,
            u.nombres, u.apellidos, u.correo, e.codigo, e.programa,
            CONCAT(ud.nombres, ' ', ud.apellidos) AS director
     FROM anteproyectos a
-    INNER JOIN ideas i ON i.id_idea = a.id_idea
     INNER JOIN usuarios u ON u.id_usuario = a.id_estudiante
     INNER JOIN estudiantes e ON e.id_usuario = a.id_estudiante
     LEFT JOIN usuarios ud ON ud.id_usuario = a.id_director
     WHERE a.id_anteproyecto = ? AND a.id_evaluador = ?
-      AND a.estado IN ('Aprobado por director', 'Aprobado por evaluador', 'Rechazado')
+      AND a.estado IN ('Enviado', 'Aprobado por director', 'Aprobado por evaluador', 'Rechazado')
     <sql:param value="${empty param.id ? 0 : param.id}"/>
     <sql:param value="${sessionScope.id_usuario}"/>
 </sql:query>
@@ -30,6 +29,12 @@
 </c:if>
 
 <c:set var="p" value="${rs.rows[0]}"/>
+<sql:query var="idea" dataSource="${bd}">
+    SELECT titulo, descripcion
+    FROM ideas
+    WHERE id_idea = ?
+    <sql:param value="${p.id_idea}"/>
+</sql:query>
 <c:set var="documentoExterno" value="${not empty p.archivo and (fn:startsWith(fn:toLowerCase(p.archivo), 'https://') or fn:startsWith(fn:toLowerCase(p.archivo), 'http://'))}"/>
 <c:set var="est" value="${p.estado}"/>
 <%@ include file="/WEB-INF/jspf/clase-estado.jspf" %>
@@ -40,7 +45,7 @@
     <div>
         <p class="anteproyecto-eyebrow">REVISIÓN DEL EVALUADOR</p>
         <h1>Anteproyecto</h1>
-        <p class="anteproyecto-lead"><c:out value="${p.titulo_ante}"/></p>
+        <p class="anteproyecto-lead"><c:out value="${p.titulo}"/></p>
     </div>
     <div class="revision-hero-acciones">
         <span class="badge ${claseEstado}"><c:out value="${p.estado}"/></span>
@@ -67,10 +72,10 @@
             <span class="anteproyecto-icono" aria-hidden="true">02</span>
             <div><h2>Propuesta</h2><p>Contenido y documento compartido</p></div>
         </div>
-        <div class="revision-idea"><span>IDEA ELEGIDA</span><strong><c:out value="${p.idea}"/></strong></div>
+        <div class="revision-idea"><span>IDEA ELEGIDA</span><strong><c:out value="${idea.rows[0].titulo}"/></strong><p><c:out value="${idea.rows[0].descripcion}"/></p></div>
         <div class="anteproyecto-dato">
             <span>Título del anteproyecto</span>
-            <strong><c:out value="${p.titulo_ante}"/></strong>
+            <strong><c:out value="${p.titulo}"/></strong>
         </div>
         <div class="anteproyecto-dato revision-resumen">
             <span>Resumen</span>
@@ -132,6 +137,14 @@
                 <button type="submit" class="btn btn-peligro" formaction="${ctx}/evaluador/procesar-rechazar.jsp">Rechazar anteproyecto</button>
             </div>
         </form>
+    </c:when>
+    <c:when test="${p.estado == 'Enviado'}">
+        <div class="revision-card revision-decision">
+            <div class="anteproyecto-card-titulo">
+                <span class="anteproyecto-icono" aria-hidden="true">04</span>
+                <div><h2>Revisión del director pendiente</h2><p>Ya puedes consultar el anteproyecto. La decisión del evaluador estará disponible cuando el director complete su revisión.</p></div>
+            </div>
+        </div>
     </c:when>
     <c:otherwise>
         <div class="revision-card revision-decision">

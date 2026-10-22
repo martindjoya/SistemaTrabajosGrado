@@ -14,7 +14,7 @@
     INNER JOIN ideas i ON i.id_idea = a.id_idea
     LEFT JOIN usuarios ud ON ud.id_usuario = a.id_director
     WHERE a.id_evaluador = ?
-      AND a.estado IN ('Aprobado por director', 'Aprobado por evaluador', 'Rechazado')
+      AND a.estado IN ('Enviado', 'Aprobado por director', 'Aprobado por evaluador', 'Rechazado')
       AND (e.codigo LIKE ? OR CONCAT(u.nombres, ' ', u.apellidos) LIKE ?)
       AND (? = '' OR a.estado = ?)
     ORDER BY a.fecha_aprob_director DESC
@@ -27,12 +27,13 @@
 
 <%@ include file="/WEB-INF/jspf/encabezado.jspf" %>
 
-<h1>Anteproyectos aprobados por el director</h1>
+<h1>Anteproyectos asignados</h1>
 
 <form class="buscador" action="${ctx}/evaluador/anteproyectos.jsp" method="get">
     <input type="text" name="q" placeholder="Codigo o nombre del estudiante" value="${fn:escapeXml(param.q)}">
     <select name="estado">
         <option value="">Todos los estados</option>
+        <option value="Enviado" ${param.estado == 'Enviado' ? 'selected' : ''}>En revisión del director</option>
         <option value="Aprobado por director" ${param.estado == 'Aprobado por director' ? 'selected' : ''}>Por revisar</option>
         <option value="Aprobado por evaluador" ${param.estado == 'Aprobado por evaluador' ? 'selected' : ''}>Aprobado por evaluador</option>
         <option value="Rechazado" ${param.estado == 'Rechazado' ? 'selected' : ''}>Rechazado</option>
