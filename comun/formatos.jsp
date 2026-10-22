@@ -20,6 +20,14 @@
         <div class="tarjeta">
             <h3><c:out value="${f.nombre}"/></h3>
             <p><c:out value="${f.descripcion}"/></p>
+            <c:choose>
+                <c:when test="${f.nombre == 'Formato de anteproyecto'}">
+                    <p>Para el anteproyecto se usa el formato FD-C-124.</p>
+                </c:when>
+                <c:when test="${f.nombre == 'Formato de informe final'}">
+                    <p>Para el informe final se usa el formato FD-C-125.</p>
+                </c:when>
+            </c:choose>
         </div>
     </c:forEach>
     <c:if test="${rs.rowCount == 0}">
