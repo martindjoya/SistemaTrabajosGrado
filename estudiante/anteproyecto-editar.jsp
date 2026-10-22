@@ -4,7 +4,7 @@
 <c:set var="titulo" value="Editar anteproyecto"/>
 
 <sql:query var="rs" dataSource="${bd}">
-    SELECT a.titulo, a.resumen, a.archivo, a.estado, i.titulo AS idea
+    SELECT a.titulo, a.resumen, a.archivo, a.archivo AS enlace_documento, a.estado, i.titulo AS idea
     FROM anteproyectos a
     INNER JOIN ideas i ON i.id_idea = a.id_idea
     WHERE a.id_estudiante = ?
@@ -29,13 +29,19 @@
 </c:if>
 
 <c:set var="d" value="${pageContext.request.method == 'POST' ? param : a}"/>
+<c:set var="documentoExterno" value="${fn:startsWith(fn:toLowerCase(a.archivo), 'https://') or fn:startsWith(fn:toLowerCase(a.archivo), 'http://')}"/>
 
 <%@ include file="/WEB-INF/jspf/encabezado.jspf" %>
 
-<h1>Editar anteproyecto</h1>
-<p class="subtitulo">Idea elegida: <c:out value="${a.idea}"/>. Al guardar el anteproyecto vuelve al estado Enviado.</p>
+<div class="barra-superior">
+    <div>
+        <h1>Editar anteproyecto</h1>
+        <p class="subtitulo">Idea elegida: <c:out value="${a.idea}"/>. Al guardar, el anteproyecto vuelve al estado Enviado.</p>
+    </div>
+    <a class="btn btn-secundario" href="${ctx}/estudiante/anteproyecto.jsp">Volver</a>
+</div>
 
-<form class="formulario" action="${ctx}/estudiante/procesar-anteproyecto-editar.jsp" method="post" enctype="multipart/form-data">
+<form class="formulario" action="${ctx}/estudiante/procesar-anteproyecto-editar.jsp" method="post">
     <div class="campo">
         <label for="titulo">Titulo del anteproyecto *</label>
         <input type="text" id="titulo" name="titulo" maxlength="150" value="${fn:escapeXml(d.titulo)}" required>
@@ -45,12 +51,17 @@
         <textarea id="resumen" name="resumen" required>${fn:escapeXml(d.resumen)}</textarea>
     </div>
     <div class="campo">
-        <label for="archivo">Reemplazar documento</label>
-        <input type="file" id="archivo" name="archivo" accept=".pdf,.doc,.docx">
+        <label for="enlace_documento">Enlace al documento en la nube *</label>
+        <input type="url" id="enlace_documento" name="enlace_documento" maxlength="255"
+               value="${documentoExterno ? fn:escapeXml(d.enlace_documento) : fn:escapeXml(param.enlace_documento)}"
+               placeholder="https://drive.google.com/..." required>
         <div class="ayuda">
-            Documento actual:
-            <a href="${ctx}/uploads/<c:out value="${a.archivo}"/>" target="_blank"><c:out value="${a.archivo}"/></a>.
-            Deje vacio para conservarlo. PDF o Word. Maximo 5 MB.
+            <c:choose>
+                <c:when test="${empty a.archivo}">Aún no hay un documento enlazado.</c:when>
+                <c:when test="${documentoExterno}">Enlace actual: <a href="<c:out value="${a.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento</a>.</c:when>
+                <c:otherwise>Documento cargado anteriormente: <a href="${ctx}/uploads/<c:out value="${a.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir archivo actual</a>. Reemplázalo con un enlace compartido en la nube.</c:otherwise>
+            </c:choose>
+            Comprueba que el director y el evaluador tengan permiso para verlo.
         </div>
     </div>
 

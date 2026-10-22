@@ -64,3 +64,139 @@
     .rejilla-2 { grid-template-columns: 1fr; }
     .formulario { padding: 1.3rem; }
 }
+
+/* ---------- Mi anteproyecto ---------- */
+.anteproyecto-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 4vw, 2.8rem);
+    margin-bottom: 1.4rem;
+    border: 1px solid var(--beige-300);
+    border-radius: 24px;
+    background:
+        radial-gradient(500px 260px at 100% 0, rgba(207, 217, 193, .75), transparent 70%),
+        linear-gradient(130deg, rgba(255, 255, 255, .96), rgba(247, 242, 231, .88));
+    box-shadow: var(--sombra);
+}
+.anteproyecto-hero h1 { margin: .25rem 0 .35rem; }
+.anteproyecto-eyebrow, .documento-etiqueta, .persona-rol {
+    color: var(--musgo-500);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+}
+.anteproyecto-lead { color: var(--texto-suave); max-width: 580px; }
+.anteproyecto-estado { flex: 0 0 auto; padding: .45rem 1rem; }
+.anteproyecto-progreso {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .7rem;
+    padding: 1.2rem;
+    margin-bottom: 1.4rem;
+    border: 1px solid var(--beige-300);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .72);
+}
+.paso-progreso { display: flex; align-items: center; gap: .7rem; color: var(--texto-suave); }
+.paso-numero {
+    display: grid;
+    place-items: center;
+    flex: 0 0 2.2rem;
+    height: 2.2rem;
+    border: 1px solid var(--beige-300);
+    border-radius: 50%;
+    background: var(--beige-100);
+    color: var(--texto-suave);
+    font-size: .85rem;
+    font-weight: 700;
+}
+.paso-progreso strong, .paso-progreso small { display: block; }
+.paso-progreso strong { color: var(--texto); font-size: .84rem; }
+.paso-progreso small { margin-top: .1rem; font-size: .68rem; line-height: 1.3; }
+.paso-completado .paso-numero { border-color: var(--musgo-500); background: var(--musgo-500); color: #fff; }
+.paso-actual .paso-numero { border: 2px solid var(--dorado); color: var(--musgo-900); }
+.paso-actual strong, .paso-revision strong { color: var(--musgo-700); }
+.paso-revision .paso-numero { border-color: var(--error); color: var(--error); }
+.anteproyecto-alerta {
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.4rem;
+    border: 1px solid #e3aaa1;
+    border-left: 5px solid var(--error);
+    border-radius: 12px;
+    background: #f6e3df;
+    color: #7c2f26;
+}
+.anteproyecto-columnas { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(270px, 1fr); gap: 1.2rem; }
+.anteproyecto-card {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--beige-300);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .8);
+    box-shadow: var(--sombra);
+}
+.anteproyecto-card-titulo { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.6rem; }
+.anteproyecto-card-titulo h2 { margin: 0; font-size: 1.55rem; }
+.anteproyecto-card-titulo p { color: var(--texto-suave); font-size: .82rem; }
+.anteproyecto-icono {
+    display: grid;
+    place-items: center;
+    flex: 0 0 2.7rem;
+    height: 2.7rem;
+    border: 1px solid var(--salvia-200);
+    border-radius: 13px;
+    background: var(--salvia-100);
+    color: var(--musgo-700);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.anteproyecto-dato { padding: 0 0 1.1rem; }
+.anteproyecto-dato > span, .anteproyecto-fecha > span { display: block; margin-bottom: .2rem; color: var(--texto-suave); font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.anteproyecto-dato > strong { display: block; color: var(--musgo-900); font-size: 1.05rem; }
+.anteproyecto-dato > p { color: var(--texto); white-space: pre-line; overflow-wrap: anywhere; }
+.anteproyecto-documento {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    margin: .35rem 0 1rem;
+    border: 1px solid var(--salvia-200);
+    border-radius: 14px;
+    background: linear-gradient(120deg, #f6f8f1, #fffdf8);
+}
+.anteproyecto-documento strong, .anteproyecto-documento small { display: block; }
+.anteproyecto-documento strong { margin: .2rem 0; color: var(--musgo-900); font-size: .9rem; }
+.anteproyecto-documento small { max-width: 390px; color: var(--texto-suave); font-size: .75rem; }
+.anteproyecto-documento .btn { flex: 0 0 auto; }
+.anteproyecto-fecha { padding-top: .8rem; border-top: 1px solid var(--beige-200); }
+.anteproyecto-fecha strong { color: var(--texto); font-size: .9rem; }
+.persona-asignada { padding: 1rem 0; border-bottom: 1px solid var(--beige-200); }
+.persona-asignada:last-of-type { border-bottom: 0; }
+.persona-asignada strong, .persona-asignada > span:not(.persona-rol), .persona-asignada a { display: block; overflow-wrap: anywhere; }
+.persona-asignada strong { margin: .25rem 0; color: var(--musgo-900); }
+.persona-asignada > span:not(.persona-rol), .persona-asignada a { color: var(--texto-suave); font-size: .82rem; }
+.persona-asignada a { color: var(--musgo-500); }
+.anteproyecto-calificacion { display: block; padding: 1rem; margin-top: 1rem; border-radius: 14px; background: var(--salvia-100); }
+.anteproyecto-calificacion span, .anteproyecto-calificacion strong { display: block; }
+.anteproyecto-calificacion span { color: var(--texto-suave); font-size: .76rem; }
+.anteproyecto-calificacion strong { margin-top: .25rem; color: var(--musgo-700); }
+.anteproyecto-acciones { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.4rem 0 .2rem; }
+.anteproyecto-acciones h2 { margin: 0; font-size: 1.35rem; }
+.anteproyecto-acciones p, .anteproyecto-bloqueado { color: var(--texto-suave); font-size: .82rem; }
+.anteproyecto-acciones .acciones { margin: 0; }
+
+@media (max-width: 850px) {
+    .anteproyecto-columnas { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+    .anteproyecto-hero { align-items: flex-start; flex-direction: column; }
+    .anteproyecto-progreso { grid-template-columns: 1fr 1fr; }
+    .anteproyecto-acciones { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 420px) {
+    .anteproyecto-progreso { grid-template-columns: 1fr; }
+    .anteproyecto-documento { align-items: flex-start; flex-direction: column; }
+}

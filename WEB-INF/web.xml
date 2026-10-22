@@ -22,15 +22,10 @@
             </jsp-property-group>
         </jsp-config>
 
-    <!-- Subida de anteproyectos (max. 5 MB) -->
+    <!-- Procesamiento de los formularios del anteproyecto -->
     <servlet>
         <servlet-name>SubirAnteproyecto</servlet-name>
         <jsp-file>/estudiante/procesar-anteproyecto-subir.jsp</jsp-file>
-        <multipart-config>
-            <max-file-size>5242880</max-file-size>
-            <max-request-size>6291456</max-request-size>
-            <file-size-threshold>0</file-size-threshold>
-        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>SubirAnteproyecto</servlet-name>
@@ -40,11 +35,6 @@
     <servlet>
         <servlet-name>EditarAnteproyecto</servlet-name>
         <jsp-file>/estudiante/procesar-anteproyecto-editar.jsp</jsp-file>
-        <multipart-config>
-            <max-file-size>5242880</max-file-size>
-            <max-request-size>6291456</max-request-size>
-            <file-size-threshold>0</file-size-threshold>
-        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>EditarAnteproyecto</servlet-name>

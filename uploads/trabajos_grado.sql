@@ -60,7 +60,7 @@ CREATE TABLE anteproyectos (
     id_idea INT NOT NULL,
     titulo VARCHAR(150),
     resumen TEXT,
-    archivo VARCHAR(255),                      -- nombre del PDF/Word en /uploads
+    archivo VARCHAR(255),                      -- enlace HTTPS al documento en la nube (tambien admite archivos locales existentes)
     id_director INT NULL,
     id_evaluador INT NULL,
     estado ENUM('Idea','Enviado','Aprobado por director','Aprobado por evaluador','Rechazado')

@@ -28,6 +28,7 @@
 </c:if>
 
 <c:set var="p" value="${rs.rows[0]}"/>
+<c:set var="documentoExterno" value="${fn:startsWith(fn:toLowerCase(p.archivo), 'https://') or fn:startsWith(fn:toLowerCase(p.archivo), 'http://')}"/>
 <c:set var="est" value="${p.estado}"/>
 <%@ include file="/WEB-INF/jspf/clase-estado.jspf" %>
 
@@ -65,10 +66,9 @@
                 <dt>Documento</dt>
                 <dd>
                     <c:choose>
-                        <c:when test="${empty p.archivo}">Sin archivo</c:when>
-                        <c:otherwise>
-                            <a href="${ctx}/uploads/<c:out value="${p.archivo}"/>" target="_blank">Descargar documento</a>
-                        </c:otherwise>
+                        <c:when test="${empty p.archivo}">Sin documento enlazado</c:when>
+                        <c:when test="${documentoExterno}"><a href="<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento en la nube</a></c:when>
+                        <c:otherwise><a href="${ctx}/uploads/<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento</a></c:otherwise>
                     </c:choose>
                 </dd>
                 <dt>Estado</dt><dd><span class="badge ${claseEstado}"><c:out value="${p.estado}"/></span></dd>

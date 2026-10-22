@@ -25,6 +25,7 @@
 </c:if>
 
 <c:set var="p" value="${rs.rows[0]}"/>
+<c:set var="documentoExterno" value="${fn:startsWith(fn:toLowerCase(p.archivo), 'https://') or fn:startsWith(fn:toLowerCase(p.archivo), 'http://')}"/>
 <c:if test="${empty p.calificacion}">
     <c:redirect url="/director/calificar.jsp">
         <c:param name="id" value="${p.id_anteproyecto}"/>
@@ -57,8 +58,9 @@
         <dt>Documento</dt>
         <dd>
             <c:choose>
-                <c:when test="${empty p.archivo}">Sin archivo</c:when>
-                <c:otherwise><a href="${ctx}/uploads/<c:out value="${p.archivo}"/>" target="_blank" rel="noopener">Descargar documento</a></c:otherwise>
+                <c:when test="${empty p.archivo}">Sin documento enlazado</c:when>
+                <c:when test="${documentoExterno}"><a href="<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento en la nube</a></c:when>
+                <c:otherwise><a href="${ctx}/uploads/<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento</a></c:otherwise>
             </c:choose>
         </dd>
         <dt>Fecha de envio</dt><dd><c:out value="${p.fecha_envio}"/></dd>

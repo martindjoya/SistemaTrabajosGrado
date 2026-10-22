@@ -24,10 +24,15 @@
 
 <%@ include file="/WEB-INF/jspf/encabezado.jspf" %>
 
-<h1>Subir anteproyecto</h1>
-<p class="subtitulo">Idea elegida: <c:out value="${rs.rows[0].idea}"/></p>
+<div class="barra-superior">
+    <div>
+        <h1>Completar anteproyecto</h1>
+        <p class="subtitulo">Idea elegida: <c:out value="${rs.rows[0].idea}"/></p>
+    </div>
+    <a class="btn btn-secundario" href="${ctx}/estudiante/anteproyecto.jsp">Volver</a>
+</div>
 
-<form class="formulario" action="${ctx}/estudiante/procesar-anteproyecto-subir.jsp" method="post" enctype="multipart/form-data">
+<form class="formulario" action="${ctx}/estudiante/procesar-anteproyecto-subir.jsp" method="post">
     <div class="campo">
         <label for="titulo">Titulo del anteproyecto *</label>
         <input type="text" id="titulo" name="titulo" maxlength="150" value="${fn:escapeXml(param.titulo)}" required>
@@ -39,9 +44,10 @@
         <div class="ayuda">Minimo 20 caracteres.</div>
     </div>
     <div class="campo">
-        <label for="archivo">Documento *</label>
-        <input type="file" id="archivo" name="archivo" accept=".pdf,.doc,.docx" required>
-        <div class="ayuda">Formatos permitidos: PDF o Word. Maximo 5 MB.</div>
+        <label for="enlace_documento">Enlace al documento en la nube *</label>
+        <input type="url" id="enlace_documento" name="enlace_documento" maxlength="255"
+               placeholder="https://drive.google.com/..." value="${fn:escapeXml(param.enlace_documento)}" required>
+        <div class="ayuda">Pega un enlace compartido de Google Drive, OneDrive, Dropbox u otro servicio. Asegúrate de permitir el acceso a quienes revisarán el anteproyecto.</div>
     </div>
 
     <div class="acciones">
