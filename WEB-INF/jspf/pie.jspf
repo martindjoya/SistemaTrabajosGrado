@@ -1,6 +1,11 @@
 </main>
 <footer class="pie">
     <p>Universitaria Tecnológica de Santander - Sistema de Trabajos de Grado</p>
+    <p>
+        <a href="https://www.uts.edu.co/calendario-academico/" target="_blank" rel="noopener noreferrer">Calendario académico UTS</a>
+        <span aria-hidden="true">|</span>
+        <a href="https://www.dropbox.com/scl/fo/pudgcaq639agy7t06ahjs/AN084HnuyHffgYL5i--v_Ks/DOCUMENTOS%20DE%20GRADO?dl=0&amp;rlkey=6s0b9ajweteyx2ang7ywvk6xm&amp;subfolder_nav_tracking=1" target="_blank" rel="noopener noreferrer">Formatos de grado</a>
+    </p>
 </footer>
 </body>
 </html>
