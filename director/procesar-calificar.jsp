@@ -30,7 +30,8 @@
 <c:if test="${empty errorValidacion}">
     <fmt:setLocale value="en_US"/>
     <fmt:formatNumber var="notaUnaDecimal" value="${nota}" pattern="0.0"/>
-    <c:if test="${nota != notaUnaDecimal}">
+    <fmt:parseNumber var="notaRedondeada" value="${notaUnaDecimal}" parseLocale="en_US"/>
+    <c:if test="${nota != notaRedondeada}">
         <c:set var="errorValidacion" value="La calificacion solo puede tener un decimal."/>
     </c:if>
 </c:if>
