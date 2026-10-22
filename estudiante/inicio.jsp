@@ -4,18 +4,25 @@
 <c:set var="titulo" value="Panel del estudiante"/>
 
 <sql:query var="rs" dataSource="${bd}">
-    SELECT a.id_anteproyecto, a.estado, a.calificacion, i.titulo AS idea,
+    SELECT a.id_anteproyecto, a.id_idea, a.titulo, a.resumen, a.estado, a.calificacion,
            CONCAT(ud.nombres, ' ', ud.apellidos) AS director,
            CONCAT(ue.nombres, ' ', ue.apellidos) AS evaluador
     FROM usuarios u
     LEFT JOIN anteproyectos a ON a.id_estudiante = u.id_usuario
-    LEFT JOIN ideas i ON i.id_idea = a.id_idea
     LEFT JOIN usuarios ud ON ud.id_usuario = a.id_director
     LEFT JOIN usuarios ue ON ue.id_usuario = a.id_evaluador
     WHERE u.id_usuario = ?
     <sql:param value="${sessionScope.id_usuario}"/>
 </sql:query>
 <c:set var="p" value="${rs.rows[0]}"/>
+<c:if test="${not empty p.id_anteproyecto}">
+    <sql:query var="idea" dataSource="${bd}">
+        SELECT titulo, descripcion
+        FROM ideas
+        WHERE id_idea = ?
+        <sql:param value="${p.id_idea}"/>
+    </sql:query>
+</c:if>
 <c:set var="est" value="${p.estado}"/>
 <%@ include file="/WEB-INF/jspf/clase-estado.jspf" %>
 
@@ -43,8 +50,14 @@
                 </div>
             </div>
             <div class="tarjeta">
-                <p>Idea elegida</p>
-                <h3><c:out value="${p.idea}"/></h3>
+                <p>Idea original elegida</p>
+                <h3><c:out value="${idea.rows[0].titulo}"/></h3>
+                <p><c:out value="${idea.rows[0].descripcion}"/></p>
+            </div>
+            <div class="tarjeta">
+                <p>Título de tu anteproyecto</p>
+                <h3><c:out value="${empty p.titulo ? 'Pendiente de completar' : p.titulo}"/></h3>
+                <p><c:out value="${empty p.resumen ? 'Completa el resumen de tu propuesta.' : p.resumen}"/></p>
             </div>
             <div class="tarjeta">
                 <p>Director</p>

@@ -156,6 +156,17 @@
 .anteproyecto-dato > span, .anteproyecto-fecha > span { display: block; margin-bottom: .2rem; color: var(--texto-suave); font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
 .anteproyecto-dato > strong { display: block; color: var(--musgo-900); font-size: 1.05rem; }
 .anteproyecto-dato > p { color: var(--texto); white-space: pre-line; overflow-wrap: anywhere; }
+.idea-original {
+    padding: 1.1rem 1.2rem;
+    margin: 0 0 1.25rem;
+    border: 1px solid var(--salvia-200);
+    border-left: 4px solid var(--musgo-500);
+    border-radius: 14px;
+    background: linear-gradient(120deg, #f6f8f1, #fffdf8);
+}
+.idea-original h2, .idea-original h3 { margin: .25rem 0 .4rem; font-size: 1.35rem; }
+.idea-original p { color: var(--texto-suave); white-space: pre-line; overflow-wrap: anywhere; }
+.formulario .idea-original { max-width: none; box-shadow: none; }
 .anteproyecto-documento {
     display: flex;
     align-items: center;

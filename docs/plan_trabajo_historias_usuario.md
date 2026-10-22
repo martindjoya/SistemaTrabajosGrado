@@ -97,6 +97,8 @@ Cada sesión comienza con una meta concreta y termina guardando los cambios y an
 - Solo puedo seleccionar una idea que esté disponible; la selección la marca como ocupada y queda asociada a mi usuario.
 - No puedo seleccionar una segunda idea mientras ya tenga una asignada.
 - Puedo registrar título, resumen y el enlace HTTPS al documento de mi anteproyecto.
+- La idea elegida conserva y muestra su título y descripción originales, separados del título y el resumen que escribo para mi anteproyecto.
+- El título y el resumen que escribo se guardan como datos propios del anteproyecto y se muestran al volver a consultarlo.
 - El enlace se comparte desde un servicio en la nube con permisos de acceso para quienes revisan el trabajo.
 - El documento se comparte mediante un enlace HTTPS; no se carga ningún archivo al sistema.
 

@@ -49,7 +49,7 @@
 </c:if>
 
 <c:catch var="err">
-    <sql:update dataSource="${bd}">
+    <sql:update var="actualizados" dataSource="${bd}">
         UPDATE anteproyectos
         SET titulo = ?, resumen = ?, archivo = ?, estado = 'Enviado', fecha_envio = NOW()
         WHERE id_anteproyecto = ? AND id_estudiante = ? AND estado = 'Idea'
@@ -67,6 +67,15 @@
         <jsp:param name="resumen" value="${param.resumen}"/>
         <jsp:param name="enlace_documento" value="${enlace}"/>
         <jsp:param name="error" value="No se pudo registrar el anteproyecto. Intente de nuevo."/>
+    </jsp:forward>
+</c:if>
+
+<c:if test="${actualizados != 1}">
+    <jsp:forward page="/estudiante/anteproyecto-subir.jsp">
+        <jsp:param name="titulo" value="${param.titulo}"/>
+        <jsp:param name="resumen" value="${param.resumen}"/>
+        <jsp:param name="enlace_documento" value="${enlace}"/>
+        <jsp:param name="error" value="No se guardaron los datos del anteproyecto. Verifique que la idea siga disponible e intente de nuevo."/>
     </jsp:forward>
 </c:if>
 

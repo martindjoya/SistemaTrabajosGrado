@@ -4,9 +4,8 @@
 <c:set var="titulo" value="Editar anteproyecto"/>
 
 <sql:query var="rs" dataSource="${bd}">
-    SELECT a.titulo, a.resumen, a.archivo, a.archivo AS enlace_documento, a.estado, i.titulo AS idea
+    SELECT a.id_idea, a.titulo, a.resumen, a.archivo, a.estado
     FROM anteproyectos a
-    INNER JOIN ideas i ON i.id_idea = a.id_idea
     WHERE a.id_estudiante = ?
     <sql:param value="${sessionScope.id_usuario}"/>
 </sql:query>
@@ -18,6 +17,12 @@
 </c:if>
 
 <c:set var="a" value="${rs.rows[0]}"/>
+<sql:query var="idea" dataSource="${bd}">
+    SELECT titulo, descripcion
+    FROM ideas
+    WHERE id_idea = ?
+    <sql:param value="${a.id_idea}"/>
+</sql:query>
 
 <c:if test="${a.estado == 'Idea'}">
     <c:redirect url="/estudiante/anteproyecto-subir.jsp"/>
@@ -30,30 +35,36 @@
 
 <c:set var="d" value="${pageContext.request.method == 'POST' ? param : a}"/>
 <c:set var="documentoExterno" value="${not empty a.archivo and (fn:startsWith(fn:toLowerCase(a.archivo), 'https://') or fn:startsWith(fn:toLowerCase(a.archivo), 'http://'))}"/>
+<c:set var="enlaceDocumento" value="${pageContext.request.method == 'POST' ? param.enlace_documento : a.archivo}"/>
 
 <%@ include file="/WEB-INF/jspf/encabezado.jspf" %>
 
 <div class="barra-superior">
     <div>
         <h1>Editar anteproyecto</h1>
-        <p class="subtitulo">Idea elegida: <c:out value="${a.idea}"/>. Al guardar, el anteproyecto vuelve al estado Enviado.</p>
+        <p class="subtitulo">Actualiza los datos de tu propuesta. Al guardar, el anteproyecto vuelve al estado Enviado.</p>
     </div>
     <a class="btn btn-secundario" href="${ctx}/estudiante/anteproyecto.jsp">Volver</a>
 </div>
 
 <form class="formulario" action="${ctx}/estudiante/procesar-anteproyecto-editar.jsp" method="post">
+    <section class="idea-original">
+        <span class="documento-etiqueta">Datos de la idea seleccionada:</span>
+        <h2><c:out value="${idea.rows[0].titulo}"/></h2>
+        <p><c:out value="${idea.rows[0].descripcion}"/></p>
+    </section>
     <div class="campo">
-        <label for="titulo">Titulo del anteproyecto *</label>
+        <label for="titulo">Título de tu anteproyecto *</label>
         <input type="text" id="titulo" name="titulo" maxlength="150" value="${fn:escapeXml(d.titulo)}" required>
     </div>
     <div class="campo">
-        <label for="resumen">Resumen *</label>
+        <label for="resumen">Resumen de tu anteproyecto *</label>
         <textarea id="resumen" name="resumen" required>${fn:escapeXml(d.resumen)}</textarea>
     </div>
     <div class="campo">
         <label for="enlace_documento">Enlace al documento en la nube *</label>
         <input type="url" id="enlace_documento" name="enlace_documento" maxlength="255"
-               value="${documentoExterno ? fn:escapeXml(d.enlace_documento) : fn:escapeXml(param.enlace_documento)}"
+               value="${fn:escapeXml(enlaceDocumento)}"
                placeholder="https://drive.google.com/..." required>
         <div class="ayuda">
             <c:choose>

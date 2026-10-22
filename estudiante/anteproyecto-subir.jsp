@@ -4,9 +4,8 @@
 <c:set var="titulo" value="Completar anteproyecto"/>
 
 <sql:query var="rs" dataSource="${bd}">
-    SELECT a.estado, i.titulo AS idea
+    SELECT a.estado, a.id_idea
     FROM anteproyectos a
-    INNER JOIN ideas i ON i.id_idea = a.id_idea
     WHERE a.id_estudiante = ?
     <sql:param value="${sessionScope.id_usuario}"/>
 </sql:query>
@@ -21,25 +20,36 @@
         <c:param name="error" value="Ya subio su anteproyecto. Use la opcion Editar."/>
     </c:redirect>
 </c:if>
+<sql:query var="idea" dataSource="${bd}">
+    SELECT titulo, descripcion
+    FROM ideas
+    WHERE id_idea = ?
+    <sql:param value="${rs.rows[0].id_idea}"/>
+</sql:query>
 
 <%@ include file="/WEB-INF/jspf/encabezado.jspf" %>
 
 <div class="barra-superior">
     <div>
         <h1>Completar anteproyecto</h1>
-        <p class="subtitulo">Idea elegida: <c:out value="${rs.rows[0].idea}"/></p>
+        <p class="subtitulo">Completa el título y resumen de tu propuesta para iniciar la revisión.</p>
     </div>
     <a class="btn btn-secundario" href="${ctx}/estudiante/anteproyecto.jsp">Volver</a>
 </div>
 
 <form class="formulario" action="${ctx}/estudiante/procesar-anteproyecto-subir.jsp" method="post">
+    <section class="idea-original">
+        <span class="documento-etiqueta">Datos de la idea seleccionada:</span>
+        <h2><c:out value="${idea.rows[0].titulo}"/></h2>
+        <p><c:out value="${idea.rows[0].descripcion}"/></p>
+    </section>
     <div class="campo">
-        <label for="titulo">Titulo del anteproyecto *</label>
+        <label for="titulo">Título de tu anteproyecto *</label>
         <input type="text" id="titulo" name="titulo" maxlength="150" value="${fn:escapeXml(param.titulo)}" required>
-        <div class="ayuda">Entre 5 y 150 caracteres.</div>
+        <div class="ayuda">Escribe el título de tu anteproyecto, distinto del título de la idea. Entre 5 y 150 caracteres.</div>
     </div>
     <div class="campo">
-        <label for="resumen">Resumen *</label>
+        <label for="resumen">Resumen de tu anteproyecto *</label>
         <textarea id="resumen" name="resumen" required>${fn:escapeXml(param.resumen)}</textarea>
         <div class="ayuda">Minimo 20 caracteres.</div>
     </div>

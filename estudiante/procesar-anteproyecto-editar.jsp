@@ -49,7 +49,7 @@
 </c:if>
 
 <c:catch var="err">
-    <sql:update dataSource="${bd}">
+    <sql:update var="actualizados" dataSource="${bd}">
         UPDATE anteproyectos
         SET titulo = ?, resumen = ?, archivo = ?, estado = 'Enviado', calificacion = NULL,
             fecha_envio = NOW(), fecha_aprob_director = NULL, fecha_aprob_evaluador = NULL
@@ -69,6 +69,15 @@
         <jsp:param name="resumen" value="${param.resumen}"/>
         <jsp:param name="enlace_documento" value="${enlace}"/>
         <jsp:param name="error" value="No se pudo actualizar el anteproyecto. Intente de nuevo."/>
+    </jsp:forward>
+</c:if>
+
+<c:if test="${actualizados != 1}">
+    <jsp:forward page="/estudiante/anteproyecto-editar.jsp">
+        <jsp:param name="titulo" value="${param.titulo}"/>
+        <jsp:param name="resumen" value="${param.resumen}"/>
+        <jsp:param name="enlace_documento" value="${enlace}"/>
+        <jsp:param name="error" value="No se guardaron los cambios del anteproyecto. Verifique que todavía pueda editarse e intente de nuevo."/>
     </jsp:forward>
 </c:if>
 

@@ -4,13 +4,11 @@
 <c:set var="titulo" value="Mi anteproyecto"/>
 
 <sql:query var="rs" dataSource="${bd}">
-    SELECT a.titulo, a.resumen, a.archivo, a.estado,
+    SELECT a.id_idea, a.titulo, a.resumen, a.archivo, a.estado,
            DATE_FORMAT(a.fecha_envio, '%d/%m/%Y %H:%i') AS fecha_envio,
-           i.titulo AS idea,
            CONCAT(ud.nombres, ' ', ud.apellidos) AS director, ud.correo AS correo_director, dd.especialidad AS esp_director,
            CONCAT(ue.nombres, ' ', ue.apellidos) AS evaluador, ue.correo AS correo_evaluador, de.especialidad AS esp_evaluador
     FROM anteproyectos a
-    INNER JOIN ideas i ON i.id_idea = a.id_idea
     LEFT JOIN usuarios ud ON ud.id_usuario = a.id_director
     LEFT JOIN docentes dd ON dd.id_usuario = a.id_director
     LEFT JOIN usuarios ue ON ue.id_usuario = a.id_evaluador
@@ -26,6 +24,12 @@
 </c:if>
 
 <c:set var="p" value="${rs.rows[0]}"/>
+<sql:query var="idea" dataSource="${bd}">
+    SELECT titulo, descripcion
+    FROM ideas
+    WHERE id_idea = ?
+    <sql:param value="${p.id_idea}"/>
+</sql:query>
 <c:set var="est" value="${p.estado}"/>
 <%@ include file="/WEB-INF/jspf/clase-estado.jspf" %>
 <c:set var="documentoExterno" value="${not empty p.archivo and (fn:startsWith(fn:toLowerCase(p.archivo), 'https://') or fn:startsWith(fn:toLowerCase(p.archivo), 'http://'))}"/>
@@ -66,18 +70,19 @@
     <section class="anteproyecto-card anteproyecto-detalle">
         <div class="anteproyecto-card-titulo">
             <span class="anteproyecto-icono" aria-hidden="true">01</span>
-            <div><h2>Tu propuesta</h2><p>La información registrada para tu trabajo de grado.</p></div>
+            <div><h2>Tu propuesta</h2><p>La idea elegida y el anteproyecto que redactaste se muestran por separado.</p></div>
+        </div>
+        <div class="idea-original">
+            <span class="documento-etiqueta">Datos de la idea seleccionada:</span>
+            <h3><c:out value="${idea.rows[0].titulo}"/></h3>
+            <p><c:out value="${idea.rows[0].descripcion}"/></p>
         </div>
         <div class="anteproyecto-dato">
-            <span>Idea elegida</span>
-            <strong><c:out value="${p.idea}"/></strong>
+            <span>TÍTULO DE ANTEPROYECTO ESCRITO POR TI</span>
+            <strong><c:out value="${empty p.titulo ? 'Aún no has escrito el título de tu anteproyecto.' : p.titulo}"/></strong>
         </div>
         <div class="anteproyecto-dato">
-            <span>Título del anteproyecto</span>
-            <strong><c:out value="${empty p.titulo ? 'Pendiente de completar' : p.titulo}"/></strong>
-        </div>
-        <div class="anteproyecto-dato">
-            <span>Resumen</span>
+            <span>Resumen de tu anteproyecto</span>
             <p><c:out value="${empty p.resumen ? 'Completa los datos de tu anteproyecto para iniciar la revisión.' : p.resumen}"/></p>
         </div>
         <div class="anteproyecto-documento">
