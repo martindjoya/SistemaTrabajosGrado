@@ -35,47 +35,81 @@
 
 <%@ include file="/WEB-INF/jspf/encabezado.jspf" %>
 
-<div class="barra-superior">
-    <h1>Aprobar anteproyecto</h1>
-    <a class="btn btn-secundario" href="${ctx}/director/anteproyectos.jsp">Volver al listado</a>
-</div>
-
-<div class="panel">
-    <h3>Datos del estudiante</h3>
-    <dl class="ficha">
-        <dt>Nombre</dt><dd><c:out value="${p.nombres} ${p.apellidos}"/></dd>
-        <dt>Codigo</dt><dd><c:out value="${p.codigo}"/></dd>
-        <dt>Programa</dt><dd><c:out value="${p.programa}"/></dd>
-    </dl>
-</div>
-
-<div class="panel">
-    <h3>Anteproyecto</h3>
-    <dl class="ficha">
-        <dt>Idea elegida</dt><dd><c:out value="${p.idea}"/></dd>
-        <dt>Titulo</dt><dd><c:out value="${p.titulo_ante}"/></dd>
-        <dt>Resumen</dt><dd><c:out value="${p.resumen}"/></dd>
-        <dt>Documento</dt>
-        <dd>
-            <c:choose>
-                <c:when test="${empty p.archivo}">Sin documento enlazado</c:when>
-                <c:when test="${documentoExterno}"><a href="<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento en la nube</a></c:when>
-                <c:otherwise><a href="${ctx}/uploads/<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento</a></c:otherwise>
-            </c:choose>
-        </dd>
-        <dt>Fecha de envio</dt><dd><c:out value="${p.fecha_envio}"/></dd>
-        <dt>Calificacion</dt><dd><c:out value="${p.calificacion}"/> / 5.0</dd>
-        <dt>Observaciones</dt><dd><c:out value="${p.observaciones_director}"/></dd>
-    </dl>
-</div>
-
-<form class="formulario" action="${ctx}/director/procesar-aprobar.jsp" method="post">
-    <input type="hidden" name="id" value="${p.id_anteproyecto}">
-    <p>Al aprobarlo, el anteproyecto sera enviado al evaluador y ya no podra editarse desde su cuenta.</p>
-    <div class="acciones">
-        <button type="submit" class="btn btn-primario">Confirmar aprobacion</button>
-        <a class="btn btn-secundario" href="${ctx}/director/calificar.jsp?id=${p.id_anteproyecto}">Volver a la calificacion</a>
+<section class="revision-hero">
+    <div>
+        <p class="anteproyecto-eyebrow">CONFIRMACIÓN DEL DIRECTOR</p>
+        <h1>Aprobar anteproyecto</h1>
+        <p class="anteproyecto-lead"><c:out value="${p.titulo_ante}"/></p>
     </div>
-</form>
+    <div class="revision-hero-acciones">
+        <span class="badge badge-enviado">Enviado</span>
+        <a class="btn btn-secundario" href="${ctx}/director/anteproyectos.jsp">Volver al listado</a>
+    </div>
+</section>
+
+<section class="revision-card revision-estudiante">
+    <div class="anteproyecto-card-titulo">
+        <span class="anteproyecto-icono" aria-hidden="true">01</span>
+        <div><h2>Estudiante</h2><p>Autor del anteproyecto</p></div>
+    </div>
+    <div class="revision-estudiante-datos">
+        <div><span>Nombre</span><strong><c:out value="${p.nombres} ${p.apellidos}"/></strong></div>
+        <div><span>Código</span><strong><c:out value="${p.codigo}"/></strong></div>
+        <div><span>Programa</span><strong><c:out value="${p.programa}"/></strong></div>
+    </div>
+</section>
+
+<section class="revision-card revision-propuesta revision-aprobar-propuesta">
+    <div class="anteproyecto-card-titulo">
+        <span class="anteproyecto-icono" aria-hidden="true">02</span>
+        <div><h2>Confirma los datos</h2><p>Revisa la propuesta antes de remitirla al evaluador.</p></div>
+    </div>
+    <div class="revision-idea"><span>IDEA ELEGIDA</span><strong><c:out value="${p.idea}"/></strong></div>
+    <div class="anteproyecto-dato">
+        <span>Título del anteproyecto</span>
+        <strong><c:out value="${p.titulo_ante}"/></strong>
+    </div>
+    <div class="anteproyecto-dato revision-resumen">
+        <span>Resumen</span>
+        <p><c:out value="${p.resumen}"/></p>
+    </div>
+    <div class="revision-aprobacion-datos">
+        <div class="anteproyecto-documento">
+            <div>
+                <span class="documento-etiqueta">DOCUMENTO DEL ANTEPROYECTO</span>
+                <strong><c:choose><c:when test="${empty p.archivo}">Sin documento enlazado</c:when><c:otherwise>Documento disponible para revisión</c:otherwise></c:choose></strong>
+                <small><c:out value="${empty p.fecha_envio ? 'Fecha de envío pendiente' : p.fecha_envio}"/></small>
+            </div>
+            <c:if test="${not empty p.archivo}">
+                <c:choose>
+                    <c:when test="${documentoExterno}"><a class="btn btn-secundario btn-sm" href="<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento</a></c:when>
+                    <c:otherwise><a class="btn btn-secundario btn-sm" href="${ctx}/uploads/<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento</a></c:otherwise>
+                </c:choose>
+            </c:if>
+        </div>
+        <div class="revision-nota">
+            <span>CALIFICACIÓN DEL DIRECTOR</span>
+            <strong><c:out value="${p.calificacion}"/><small> / 5.0</small></strong>
+        </div>
+    </div>
+    <div class="revision-observaciones">
+        <span>OBSERVACIONES DEL DIRECTOR</span>
+        <p><c:out value="${empty p.observaciones_director ? 'Sin observaciones registradas.' : p.observaciones_director}"/></p>
+    </div>
+</section>
+
+<div class="revision-card revision-confirmacion">
+    <div>
+        <h2>Enviar al evaluador</h2>
+        <p>Al confirmar, el anteproyecto pasará a revisión del evaluador y dejará de admitir cambios del estudiante.</p>
+    </div>
+    <form action="${ctx}/director/procesar-aprobar.jsp" method="post">
+        <input type="hidden" name="id" value="${p.id_anteproyecto}">
+        <div class="acciones">
+            <button type="submit" class="btn btn-primario">Confirmar aprobación</button>
+            <a class="btn btn-secundario" href="${ctx}/director/calificar.jsp?id=${p.id_anteproyecto}">Volver a la calificación</a>
+        </div>
+    </form>
+</div>
 
 <%@ include file="/WEB-INF/jspf/pie.jspf" %>

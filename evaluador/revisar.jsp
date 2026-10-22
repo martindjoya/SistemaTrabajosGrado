@@ -36,54 +36,89 @@
 
 <%@ include file="/WEB-INF/jspf/encabezado.jspf" %>
 
-<div class="barra-superior">
-    <h1>Revisar anteproyecto</h1>
-    <a class="btn btn-secundario" href="${ctx}/evaluador/anteproyectos.jsp">Volver al listado</a>
-</div>
+<section class="revision-hero">
+    <div>
+        <p class="anteproyecto-eyebrow">REVISIÓN DEL EVALUADOR</p>
+        <h1>Anteproyecto</h1>
+        <p class="anteproyecto-lead"><c:out value="${p.titulo_ante}"/></p>
+    </div>
+    <div class="revision-hero-acciones">
+        <span class="badge ${claseEstado}"><c:out value="${p.estado}"/></span>
+        <a class="btn btn-secundario" href="${ctx}/evaluador/anteproyectos.jsp">Volver al listado</a>
+    </div>
+</section>
 
-<div class="panel">
-    <h3>Datos del estudiante</h3>
-    <dl class="ficha">
-        <dt>Nombre</dt><dd><c:out value="${p.nombres} ${p.apellidos}"/></dd>
-        <dt>Codigo</dt><dd><c:out value="${p.codigo}"/></dd>
-        <dt>Programa</dt><dd><c:out value="${p.programa}"/></dd>
-        <dt>Correo</dt><dd><c:out value="${p.correo}"/></dd>
-    </dl>
-</div>
+<section class="revision-card revision-estudiante">
+    <div class="anteproyecto-card-titulo">
+        <span class="anteproyecto-icono" aria-hidden="true">01</span>
+        <div><h2>Estudiante</h2><p>Autor del anteproyecto</p></div>
+    </div>
+    <div class="revision-estudiante-datos">
+        <div><span>Nombre</span><strong><c:out value="${p.nombres} ${p.apellidos}"/></strong></div>
+        <div><span>Código</span><strong><c:out value="${p.codigo}"/></strong></div>
+        <div><span>Programa</span><strong><c:out value="${p.programa}"/></strong></div>
+        <div><span>Contacto</span><a href="mailto:<c:out value="${p.correo}"/>"><c:out value="${p.correo}"/></a></div>
+    </div>
+</section>
 
-<div class="panel">
-    <h3>Anteproyecto</h3>
-    <dl class="ficha">
-        <dt>Idea elegida</dt><dd><c:out value="${p.idea}"/></dd>
-        <dt>Titulo</dt><dd><c:out value="${p.titulo_ante}"/></dd>
-        <dt>Resumen</dt><dd><c:out value="${p.resumen}"/></dd>
-        <dt>Documento</dt>
-        <dd>
-            <c:choose>
-                <c:when test="${empty p.archivo}">Sin documento enlazado</c:when>
-                <c:when test="${documentoExterno}"><a href="<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento en la nube</a></c:when>
-                <c:otherwise><a href="${ctx}/uploads/<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento</a></c:otherwise>
-            </c:choose>
-        </dd>
-        <dt>Estado</dt><dd><span class="badge ${claseEstado}"><c:out value="${p.estado}"/></span></dd>
-        <dt>Fecha de envio</dt><dd><c:out value="${p.fecha_envio}"/></dd>
-    </dl>
-</div>
+<div class="revision-columnas">
+    <section class="revision-card revision-propuesta">
+        <div class="anteproyecto-card-titulo">
+            <span class="anteproyecto-icono" aria-hidden="true">02</span>
+            <div><h2>Propuesta</h2><p>Contenido y documento compartido</p></div>
+        </div>
+        <div class="revision-idea"><span>IDEA ELEGIDA</span><strong><c:out value="${p.idea}"/></strong></div>
+        <div class="anteproyecto-dato">
+            <span>Título del anteproyecto</span>
+            <strong><c:out value="${p.titulo_ante}"/></strong>
+        </div>
+        <div class="anteproyecto-dato revision-resumen">
+            <span>Resumen</span>
+            <p><c:out value="${p.resumen}"/></p>
+        </div>
+        <div class="anteproyecto-documento">
+            <div>
+                <span class="documento-etiqueta">DOCUMENTO DEL ANTEPROYECTO</span>
+                <strong><c:choose><c:when test="${empty p.archivo}">Sin documento enlazado</c:when><c:otherwise>Documento disponible para revisión</c:otherwise></c:choose></strong>
+                <small><c:out value="${empty p.fecha_envio ? 'Fecha de envío pendiente' : p.fecha_envio}"/></small>
+            </div>
+            <c:if test="${not empty p.archivo}">
+                <c:choose>
+                    <c:when test="${documentoExterno}"><a class="btn btn-secundario btn-sm" href="<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento</a></c:when>
+                    <c:otherwise><a class="btn btn-secundario btn-sm" href="${ctx}/uploads/<c:out value="${p.archivo}"/>" target="_blank" rel="noopener noreferrer">Abrir documento</a></c:otherwise>
+                </c:choose>
+            </c:if>
+        </div>
+    </section>
 
-<div class="panel">
-    <h3>Revision del director</h3>
-    <dl class="ficha">
-        <dt>Director</dt><dd><c:out value="${empty p.director ? 'Sin asignar' : p.director}"/></dd>
-        <dt>Nota</dt><dd><c:out value="${empty p.calificacion ? '-' : p.calificacion}"/></dd>
-        <dt>Observaciones</dt><dd><c:out value="${empty p.observaciones_director ? 'Sin observaciones' : p.observaciones_director}"/></dd>
-        <dt>Aprobado el</dt><dd><c:out value="${empty p.fecha_aprob_director ? 'Pendiente' : p.fecha_aprob_director}"/></dd>
-    </dl>
+    <aside class="revision-card revision-lateral">
+        <div class="anteproyecto-card-titulo">
+            <span class="anteproyecto-icono" aria-hidden="true">03</span>
+            <div><h2>Revisión del director</h2><p>Resultado de la primera evaluación</p></div>
+        </div>
+        <div class="revision-persona">
+            <span>DIRECTOR</span>
+            <strong><c:out value="${empty p.director ? 'Sin asignar' : p.director}"/></strong>
+        </div>
+        <div class="revision-nota">
+            <span>CALIFICACIÓN</span>
+            <strong><c:out value="${empty p.calificacion ? '-' : p.calificacion}"/><small> / 5.0</small></strong>
+        </div>
+        <div class="revision-observaciones">
+            <span>OBSERVACIONES DEL DIRECTOR</span>
+            <p><c:out value="${empty p.observaciones_director ? 'Sin observaciones registradas.' : p.observaciones_director}"/></p>
+        </div>
+        <div class="revision-fecha"><span>Aprobado el</span><strong><c:out value="${empty p.fecha_aprob_director ? 'Pendiente' : p.fecha_aprob_director}"/></strong></div>
+    </aside>
 </div>
 
 <c:choose>
     <c:when test="${p.estado == 'Aprobado por director'}">
-        <form class="formulario" method="post">
-            <h3>Decision del evaluador</h3>
+        <form class="formulario revision-card revision-decision" method="post">
+            <div class="anteproyecto-card-titulo">
+                <span class="anteproyecto-icono" aria-hidden="true">04</span>
+                <div><h2>Decisión del evaluador</h2><p>Registra el resultado de la revisión final.</p></div>
+            </div>
             <input type="hidden" name="id" value="${p.id_anteproyecto}">
 
             <div class="campo">
@@ -99,15 +134,19 @@
         </form>
     </c:when>
     <c:otherwise>
-        <div class="panel">
-            <h3>Decision registrada</h3>
-            <dl class="ficha">
-                <dt>Resultado</dt><dd><span class="badge ${claseEstado}"><c:out value="${p.estado}"/></span></dd>
-                <dt>Observaciones</dt><dd><c:out value="${empty p.observaciones_evaluador ? 'Sin observaciones' : p.observaciones_evaluador}"/></dd>
-                <c:if test="${not empty p.fecha_aprob_evaluador}">
-                    <dt>Aprobado el</dt><dd><c:out value="${p.fecha_aprob_evaluador}"/></dd>
-                </c:if>
-            </dl>
+        <div class="revision-card revision-decision">
+            <div class="anteproyecto-card-titulo">
+                <span class="anteproyecto-icono" aria-hidden="true">04</span>
+                <div><h2>Decisión registrada</h2><p>Resultado de la revisión final.</p></div>
+            </div>
+            <div class="revision-resultado"><span>RESULTADO</span><strong><span class="badge ${claseEstado}"><c:out value="${p.estado}"/></span></strong></div>
+            <div class="revision-observaciones">
+                <span>OBSERVACIONES DEL EVALUADOR</span>
+                <p><c:out value="${empty p.observaciones_evaluador ? 'Sin observaciones registradas.' : p.observaciones_evaluador}"/></p>
+            </div>
+            <c:if test="${not empty p.fecha_aprob_evaluador}">
+                <div class="revision-fecha"><span>Aprobado el</span><strong><c:out value="${p.fecha_aprob_evaluador}"/></strong></div>
+            </c:if>
         </div>
     </c:otherwise>
 </c:choose>

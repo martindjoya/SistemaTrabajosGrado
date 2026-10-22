@@ -200,3 +200,181 @@
     .anteproyecto-progreso { grid-template-columns: 1fr; }
     .anteproyecto-documento { align-items: flex-start; flex-direction: column; }
 }
+
+/* ---------- Detalle del anteproyecto: Director y Evaluador ---------- */
+.revision-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1.2rem;
+    border: 1px solid var(--beige-300);
+    border-radius: 24px;
+    background:
+        radial-gradient(500px 260px at 100% 0, rgba(207, 217, 193, .75), transparent 70%),
+        linear-gradient(130deg, rgba(255, 255, 255, .96), rgba(247, 242, 231, .88));
+    box-shadow: var(--sombra);
+}
+.revision-hero h1 { margin: .25rem 0 .3rem; }
+.revision-hero .anteproyecto-lead { margin: 0; }
+.revision-hero-acciones { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; }
+.revision-card {
+    padding: clamp(1.25rem, 3vw, 1.8rem);
+    border: 1px solid var(--beige-300);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .82);
+    box-shadow: var(--sombra);
+}
+.revision-estudiante { margin-bottom: 1.2rem; }
+.revision-estudiante .anteproyecto-card-titulo { margin-bottom: 1rem; }
+.revision-estudiante-datos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.revision-estudiante-datos > div > span, .revision-fecha > span {
+    display: block;
+    margin-bottom: .2rem;
+    color: var(--texto-suave);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+.revision-estudiante-datos strong, .revision-estudiante-datos a {
+    color: var(--musgo-900);
+    font-size: .88rem;
+    overflow-wrap: anywhere;
+}
+.revision-estudiante-datos a { color: var(--musgo-500); }
+.revision-columnas { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr); align-items: start; gap: 1.2rem; }
+.revision-propuesta, .revision-lateral { min-width: 0; }
+.revision-idea {
+    display: inline-flex;
+    flex-direction: column;
+    gap: .25rem;
+    max-width: 100%;
+    padding: .6rem .85rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--salvia-200);
+    border-radius: 12px;
+    background: var(--salvia-100);
+}
+.revision-idea span, .revision-nota > span, .revision-observaciones > span, .revision-persona > span, .revision-resultado > span {
+    color: var(--musgo-500);
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+}
+.revision-idea strong { color: var(--musgo-900); font-size: .86rem; overflow-wrap: anywhere; }
+.revision-resumen p, .revision-observaciones p { white-space: pre-line; overflow-wrap: anywhere; }
+.revision-lateral .anteproyecto-card-titulo { margin-bottom: 1rem; }
+.revision-lateral .formulario { max-width: none; width: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.revision-lateral .revision-form h3 { margin: 0 0 1rem; }
+.revision-lateral .acciones .btn { flex: 1 1 auto; }
+.revision-nota, .revision-observaciones, .revision-persona, .revision-fecha, .revision-resultado {
+    padding: .85rem 0;
+    border-bottom: 1px solid var(--beige-200);
+}
+.revision-nota strong { display: block; margin-top: .2rem; color: var(--musgo-700); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.2rem; line-height: 1.1; }
+.revision-nota strong small { font-family: 'Manrope', system-ui, sans-serif; font-size: .9rem; }
+.revision-observaciones p { margin-top: .3rem; color: var(--texto); font-size: .88rem; }
+.revision-persona strong { display: block; margin-top: .2rem; color: var(--musgo-900); }
+.revision-fecha strong { color: var(--texto); font-size: .85rem; }
+.revision-ayuda { padding-top: .9rem; color: var(--texto-suave); font-size: .8rem; }
+.revision-decision { margin-top: 1.2rem; }
+.revision-decision .anteproyecto-card-titulo { margin-bottom: 1rem; }
+.revision-decision.formulario { max-width: none; width: 100%; }
+.revision-decision .formulario { max-width: none; width: 100%; padding: 0; border: 0; background: transparent; box-shadow: none; }
+.revision-resultado strong { display: block; margin-top: .3rem; }
+.revision-aprobar-propuesta { margin-bottom: 1.2rem; }
+.revision-aprobacion-datos { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(180px, .7fr); align-items: stretch; gap: 1rem; }
+.revision-aprobacion-datos .anteproyecto-documento { margin: .35rem 0 1rem; }
+.revision-aprobacion-datos .revision-nota { padding: 1rem; margin: .35rem 0 1rem; border: 1px solid var(--salvia-200); border-radius: 14px; background: var(--salvia-100); }
+.revision-confirmacion { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; }
+.revision-confirmacion h2 { margin: 0 0 .25rem; font-size: 1.4rem; }
+.revision-confirmacion p { max-width: 600px; color: var(--texto-suave); font-size: .84rem; }
+.revision-confirmacion form { flex: 0 0 auto; }
+.revision-confirmacion .acciones { margin: 0; }
+
+@media (max-width: 850px) {
+    .revision-columnas { grid-template-columns: 1fr; }
+    .revision-estudiante-datos { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+    .revision-hero { align-items: flex-start; flex-direction: column; }
+    .revision-confirmacion { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 520px) {
+    .revision-estudiante-datos, .revision-aprobacion-datos { grid-template-columns: 1fr; }
+    .revision-hero-acciones { align-items: flex-start; flex-direction: column; }
+    .revision-confirmacion .acciones { align-items: stretch; flex-direction: column; }
+}
+
+/* ---------- Seguimiento del proyecto: Coordinación ---------- */
+.coordinacion-hero { margin-bottom: 1.2rem; }
+.revision-progreso {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .7rem;
+    padding: 1.1rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid var(--beige-300);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .76);
+}
+.revision-progreso-paso { display: flex; align-items: center; gap: .65rem; color: var(--texto-suave); }
+.revision-progreso-paso > span {
+    display: grid;
+    place-items: center;
+    flex: 0 0 2.15rem;
+    height: 2.15rem;
+    border: 1px solid var(--beige-300);
+    border-radius: 50%;
+    background: var(--beige-100);
+    color: var(--texto-suave);
+    font-size: .82rem;
+    font-weight: 700;
+}
+.revision-progreso-paso strong, .revision-progreso-paso small { display: block; }
+.revision-progreso-paso strong { color: var(--texto); font-size: .82rem; }
+.revision-progreso-paso small { margin-top: .1rem; font-size: .67rem; line-height: 1.3; }
+.revision-progreso-completado > span { border-color: var(--musgo-500); background: var(--musgo-500); color: #fff; }
+.revision-progreso-actual > span { border: 2px solid var(--dorado); color: var(--musgo-900); }
+.revision-progreso-actual strong, .revision-progreso-revision strong { color: var(--musgo-700); }
+.revision-progreso-revision > span { border-color: var(--error); color: var(--error); }
+.coordinacion-columna-principal { display: grid; gap: 1.2rem; }
+.coordinacion-evaluacion .anteproyecto-card-titulo { margin-bottom: 1rem; }
+.coordinacion-calificacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .8rem 1rem;
+    border: 1px solid var(--salvia-200);
+    border-radius: 14px;
+    background: var(--salvia-100);
+}
+.coordinacion-calificacion > span {
+    color: var(--musgo-500);
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+}
+.coordinacion-calificacion > strong { color: var(--musgo-700); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.8rem; }
+.coordinacion-calificacion > strong small { font-family: 'Manrope', system-ui, sans-serif; font-size: .82rem; }
+.coordinacion-observaciones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.coordinacion-observaciones-grid .revision-observaciones { border-bottom: 0; }
+.coordinacion-asignaciones .anteproyecto-card-titulo { margin-bottom: 1rem; }
+.coordinacion-asignar-acciones { display: grid; gap: .65rem; margin-top: 1rem; }
+.coordinacion-asignar-acciones .btn { width: 100%; }
+.coordinacion-vacio { display: flex; align-items: flex-start; gap: 1rem; }
+.coordinacion-vacio h2 { margin: 0 0 .3rem; font-size: 1.5rem; }
+.coordinacion-vacio p { max-width: 680px; color: var(--texto-suave); }
+
+@media (max-width: 850px) {
+    .revision-progreso { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+    .revision-progreso { grid-template-columns: 1fr; }
+    .coordinacion-observaciones-grid { grid-template-columns: 1fr; gap: 0; }
+    .coordinacion-calificacion { align-items: flex-start; flex-direction: column; gap: .2rem; }
+    .coordinacion-vacio { flex-direction: column; }
+}
